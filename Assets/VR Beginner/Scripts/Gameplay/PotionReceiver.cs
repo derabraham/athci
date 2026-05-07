@@ -20,10 +20,16 @@ public class PotionReceiver : MonoBehaviour
 
     public void ReceivePotion(string PotionType)
     {
-        if(AcceptedPotionType.Contains(PotionType) && !correctPoured)
+        if (AcceptedPotionType.Contains(PotionType) && !correctPoured)
         {
             OnPotionPoured.Invoke(PotionType);
             correctPoured = true;
-        }                      
+
+            EvaSystemEventSender.Send("The player poured the correct potion on the basket, the door will open.");
+        }
+        else if (!correctPoured)
+        {
+            EvaSystemEventSender.Send("The player poured the wrong potion on the basket. Ask if they have the right potion.");
+        }
     }
 }

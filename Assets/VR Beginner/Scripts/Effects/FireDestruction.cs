@@ -19,18 +19,30 @@ public class FireDestruction : MonoBehaviour
         DestroyEffect.transform.position = new Vector3(0, 0, 0);
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
+        Potion potion = other.GetComponentInParent<Potion>();
+
+        if (potion != null)
+        {
+            potion.BurnPlugOff();
+
+            DestroyEffect.gameObject.transform.position = other.gameObject.transform.position;
+            DestroyEffect.SendEvent("Explode");
+            DestroyAudioSource.Play();
+
+            return;
+        }
+
         if (other.gameObject.TryGetComponent(out XROffsetGrabbable scriptX) && !scriptX.isSelected)
         {
             if (!other.gameObject.TryGetComponent(out IndestructableObj scriptY))
             {
                 var respawnable = other.GetComponent<RespawnableObject>();
-                
+
                 DestroyEffect.gameObject.transform.position = other.gameObject.transform.position;
                 DestroyEffect.SendEvent("Explode");
-                
+
                 DestroyAudioSource.Play();
 
                 if (respawnable == null)
@@ -42,6 +54,7 @@ public class FireDestruction : MonoBehaviour
                     respawnable.Respawn();
                 }
             }
-        }       
+        }
     }
+  
 }

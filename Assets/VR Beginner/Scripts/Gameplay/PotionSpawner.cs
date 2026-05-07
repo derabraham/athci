@@ -20,12 +20,15 @@ public class PotionSpawner : MonoBehaviour
             SpawnerCorrect.Prefab = PotionPrefab;
             SpawnerCorrect.enabled = true;
             SpawnerCorrect.Spawn();
+            EvaSystemEventSender.Send("The player successfully brewed the right potion.");
+
         }
         else
         {
             SpawnerIncorrect.Prefab = BadPotionPrefab;
             SpawnerIncorrect.enabled = true;
             SpawnerIncorrect.Spawn();
+            //EvaSystemEventSender.Send("The player failed to brew the correct potion, since they added the wrong ingredients.");
         }
     }
 }

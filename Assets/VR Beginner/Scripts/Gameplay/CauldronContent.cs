@@ -90,7 +90,9 @@ public class CauldronContent : MonoBehaviour
         {
             //added an object that is not an ingredient, it will make automatically fail any recipe
             m_CurrentIngredientsIn.Add("INVALID");
+            UnityEngine.Debug.Log("Added an object that is not an ingredient, it will make automatically fail any recipe");
             respawnableObject = other.attachedRigidbody.GetComponentInChildren<RespawnableObject>();
+            EvaSystemEventSender.Send("The player added a wrong ingredient to the cauldron. Give a short hint to check the recipe board.");
         }
 
         if (respawnableObject != null)
@@ -120,6 +122,11 @@ public class CauldronContent : MonoBehaviour
         if(!m_CanBrew)
             return;
 
+        if (m_CurrentIngredientsIn.Count == 0)
+        {
+            EvaSystemEventSender.Send("The player tried to brew without adding any ingredients. Give a short hint that ingredients are needed first.");
+        }
+
         brewEffect.SendEvent("StartLongSpawn");
         CauldronAnimator.SetTrigger("Brew");
         
@@ -147,9 +154,88 @@ public class CauldronContent : MonoBehaviour
             }
         }
 
+        if (recipeBewed == null)
+        {
+            EvaSystemEventSender.Send(DiagnoseFailedBrew());
+        }
+
         ResetCauldron();
 
         StartCoroutine(WaitForBrewCoroutine(recipeBewed));
+    }
+
+    private string DiagnoseFailedBrew()
+    {
+        if (m_CurrentIngredientsIn.Count == 0)
+        {
+            return "The player tried to brew a potion without adding any ingredients. Give a short hint that the cauldron needs the correct ingredients first.";
+        }
+
+        if (m_CurrentIngredientsIn.Contains("INVALID"))
+        {
+            return "The player tried to brew a potion after adding an invalid object to the cauldron. Give a short hint to only use proper ingredients from the recipe.";
+        }
+
+        // First check whether the ingredient set matches any recipe.
+        CauldronContent.Recipe matchingIngredientRecipe = null;
+
+        foreach (Recipe recipe in Recipes)
+        {
+            if (IngredientsMatch(recipe))
+            {
+                matchingIngredientRecipe = recipe;
+                break;
+            }
+        }
+
+        if (matchingIngredientRecipe != null)
+        {
+            bool wrongTemperature = matchingIngredientRecipe.temperature != m_Temperature;
+            bool wrongRotation = matchingIngredientRecipe.rotation != m_Rotation;
+
+            if (wrongTemperature && wrongRotation)
+            {
+                return "The player used the correct ingredients, but the temperature and stirring direction are wrong. Give a short hint to check both the heat and the stirring direction.";
+            }
+
+            if (wrongTemperature)
+            {
+                return "The player used the correct ingredients, but the cauldron temperature is wrong. Give a short hint to adjust the heat according to the recipe.";
+            }
+
+            if (wrongRotation)
+            {
+                return "The player used the correct ingredients, but the stirring direction is wrong. Give a short hint to check the required stirring direction.";
+            }
+        }
+
+        foreach (Recipe recipe in Recipes)
+        {
+            if (recipe.temperature == m_Temperature && recipe.rotation == m_Rotation)
+            {
+                return "The player set the correct temperature and stirring direction for a recipe, but used the wrong ingredients. Give a short hint to re-check the ingredient list.";
+            }
+        }
+
+        return "The player brewed an incorrect potion. Give a short, non-spoiling hint to re-check the recipe, ingredients, temperature, and stirring direction.";
+    }
+
+    private bool IngredientsMatch(Recipe recipe)
+    {
+        if (m_CurrentIngredientsIn.Count != recipe.ingredients.Length)
+            return false;
+
+        List<string> copyOfIngredients = new List<string>(m_CurrentIngredientsIn);
+
+        foreach (var requiredIngredient in recipe.ingredients)
+        {
+            if (!copyOfIngredients.Contains(requiredIngredient))
+                return false;
+
+            copyOfIngredients.Remove(requiredIngredient);
+        }
+
+        return copyOfIngredients.Count == 0;
     }
 
     IEnumerator WaitForBrewCoroutine(Recipe recipe)
@@ -178,5 +264,7 @@ public class CauldronContent : MonoBehaviour
         CauldronAnimator.SetTrigger("Open");
         m_CanBrew = true;
         AmbientSoundSource.volume = m_StartingVolume;
+        EvaSystemEventSender.Send("The player successfully opened the cauldron using the wand.");
+
     }
 }

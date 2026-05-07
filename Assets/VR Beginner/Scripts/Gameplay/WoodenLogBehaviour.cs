@@ -40,6 +40,7 @@ public class WoodenLogBehaviour : MonoBehaviour
         if (other.gameObject.tag == "Ignite")
         {
             m_Burn = true;
-        }       
+            EvaSystemEventSender.Send("The player is burning logs in the chimney, this is not directly helpful but maybe the chimney might help with a different task.");
+        }
     }
 }

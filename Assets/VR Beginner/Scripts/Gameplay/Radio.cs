@@ -24,10 +24,12 @@ public class Radio : MonoBehaviour
         m_VolumeRatio = ratio;
        
         Tune();
+        EvaSystemEventSender.Send("The player is changing the volume of the radio, it is completely irrelevant and just for fun.");
     }
 
     public void TuningChanged(DialInteractable dial)
     {
+        EvaSystemEventSender.Send("The player is changing the tuning of the radio, it is completely irrelevant and just for fun.");
         //off
         if (dial.CurrentAngle < 0.01f)
         {

@@ -20,7 +20,9 @@ public class Potion : MonoBehaviour
     public MeshRenderer MeshRenderer;
     [FormerlySerializedAs("smashedObject")]
     public GameObject SmashedObject;
-    
+    [SerializeField]
+    private bool m_CanPlugOffOnlyByFire = true;
+
     [Header("Audio")]
     public AudioClip PouringClip;
     public AudioClip[] PoppingPlugAudioClip;
@@ -122,7 +124,24 @@ public class Potion : MonoBehaviour
         m_Breakable = breakable;
     }
 
+    public void BurnPlugOff()
+    {
+        ActuallyPlugOff();
+
+        EvaSystemEventSender.Send("The player burned the cork off the potion bottle. They can now pour the potion.");
+    }
+
     public void PlugOff()
+    {
+        if (m_CanPlugOffOnlyByFire)
+        {
+            return;
+        }
+
+        ActuallyPlugOff();
+    }
+
+    private void ActuallyPlugOff()
     {
         if (m_PlugIn)
         {
@@ -132,18 +151,19 @@ public class Potion : MonoBehaviour
             m_PlugRb.AddRelativeForce(new Vector3(0, 0, 120));
             popVFX.SetActive(true);
 
-            m_PlugIn = false;
-
             plugObj.transform.parent = null;
 
-            SFXPlayer.Instance.PlaySFX(PoppingPlugAudioClip[Random.Range(0, PoppingPlugAudioClip.Length)], m_PlugRb.transform.position, new SFXPlayer.PlayParameters()
-            {
-                Pitch = Random.Range(0.9f, 1.1f),
-                Volume = 1.0f,
-                SourceID = -99
-            });
+            SFXPlayer.Instance.PlaySFX(
+                PoppingPlugAudioClip[Random.Range(0, PoppingPlugAudioClip.Length)],
+                m_PlugRb.transform.position,
+                new SFXPlayer.PlayParameters()
+                {
+                    Pitch = Random.Range(0.9f, 1.1f),
+                    Volume = 1.0f,
+                    SourceID = -99
+                }
+            );
         }
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -159,7 +179,7 @@ public class Potion : MonoBehaviour
                 Collider c;
                 if (plugObj.TryGetComponent(out c))
                     c.enabled = true;
-                
+                EvaSystemEventSender.Send("The player broke a potion bottle. Give a short hint that bottles can break.");
                 Destroy(plugObj, 4.0f);
             }
 
