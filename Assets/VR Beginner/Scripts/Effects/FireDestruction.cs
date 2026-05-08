@@ -13,11 +13,12 @@ public class FireDestruction : MonoBehaviour
     public VisualEffect DestroyEffect;
 
     public AudioSource DestroyAudioSource;
-    
+
     void Start()
     {
         DestroyEffect.transform.position = new Vector3(0, 0, 0);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,13 +26,15 @@ public class FireDestruction : MonoBehaviour
 
         if (potion != null)
         {
-            potion.BurnPlugOff();
+            potion.PlugOff();
 
-            DestroyEffect.gameObject.transform.position = other.gameObject.transform.position;
-            DestroyEffect.SendEvent("Explode");
-            DestroyAudioSource.Play();
+            // Wenn Potion gerade gehalten wird: nur entkorken, nicht zerstören
+            if (other.GetComponentInParent<XROffsetGrabbable>() is XROffsetGrabbable potionGrab && potionGrab.isSelected)
+            {
+                return;
+            }
 
-            return;
+            // Wenn Potion nicht gehalten wird, darf sie danach normal zerstört werden
         }
 
         if (other.gameObject.TryGetComponent(out XROffsetGrabbable scriptX) && !scriptX.isSelected)
@@ -56,5 +59,4 @@ public class FireDestruction : MonoBehaviour
             }
         }
     }
-  
 }
