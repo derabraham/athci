@@ -1,5 +1,6 @@
 using UnityEngine;
 using Convai.Modules.Narrative;
+using Convai.Infrastructure.Networking;
 
 public class EvaSystemEventSender : MonoBehaviour
 {
@@ -14,6 +15,22 @@ public class EvaSystemEventSender : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool logMessages = true;
 
+    private static bool isCollab = false;
+
+    public static bool IsCollab => isCollab;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            isCollab = true;
+            UnityEngine.Debug.Log("[EVA] Collaboration mode enabled. System events will now be sent to Convai.");
+        }
+        if (Input.GetKeyDown(KeyCode.T)){
+            isCollab = false;
+            UnityEngine.Debug.Log("[EVA] Collaboration mode disabled. System events will no longer be sent to Convai.");
+        }
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,6 +44,8 @@ public class EvaSystemEventSender : MonoBehaviour
 
     public static void Send(string message)
     {
+        if (!isCollab) return;
+
         if (Instance == null)
         {
             Debug.LogWarning("[EVA] No EvaSystemEventSender found in scene.");
@@ -58,7 +77,14 @@ public class EvaSystemEventSender : MonoBehaviour
         // Trigger auslösen.
         bool success = narrativeTrigger.InvokeTrigger();
 
+
         if (!success)
+        {
             Debug.LogWarning("[EVA] Failed to invoke Convai narrative trigger.");
+        }
+        else
+        {
+            StudyCounters.AddInteraction();
+        }
     }
 }

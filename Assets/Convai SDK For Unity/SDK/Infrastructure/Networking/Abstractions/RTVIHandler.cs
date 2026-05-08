@@ -207,7 +207,7 @@ namespace Convai.Infrastructure.Networking
                     _logger.Debug("[RTVIHandler] Ignoring duplicate user-started-speaking event.", LogCategory.Player);
                     return;
                 }
-
+                StudyCounters.AddQuestion();
                 _isPlayerSpeaking = true;
             }
 
@@ -769,6 +769,8 @@ namespace Convai.Infrastructure.Networking
 
             _logger.Info($"[RTVIHandler] Received character TTS text for participant {participantId}: {text}",
                 LogCategory.Character);
+
+
 
             if (_eventHub == null)
             {

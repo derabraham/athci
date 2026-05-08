@@ -26,6 +26,7 @@ public class PotionReceiver : MonoBehaviour
             correctPoured = true;
 
             EvaSystemEventSender.Send("The player poured the correct potion on the basket, the door will open.");
+            StudyLogger.Instance.FinishTask();
         }
         else if (!correctPoured)
         {
