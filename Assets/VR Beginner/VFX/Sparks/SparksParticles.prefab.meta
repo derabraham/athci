@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 33099651b8c66144aa2f4364d3c49ffb
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/VFX/Sparks/SparksParticles.prefab
+  uploadId: 460758

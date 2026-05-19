@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c6f09ea75abbda04fabde0f9b5e50cee
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/EscapeRoom/Lantern.prefab
+  uploadId: 460758

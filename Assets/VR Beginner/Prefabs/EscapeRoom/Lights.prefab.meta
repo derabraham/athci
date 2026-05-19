@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d7ef83178df60b5478603626bb9c7335
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/EscapeRoom/Lights.prefab
+  uploadId: 460758

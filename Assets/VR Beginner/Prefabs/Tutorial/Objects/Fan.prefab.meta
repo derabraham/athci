@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8706b42d17b2b03439d3840f59327776
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/Tutorial/Objects/Fan.prefab
+  uploadId: 460758

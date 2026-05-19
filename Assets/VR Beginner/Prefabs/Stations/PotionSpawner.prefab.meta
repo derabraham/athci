@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 34f60038cbdc1bc4cbcf03f80d58de66
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/Stations/PotionSpawner.prefab
+  uploadId: 460758

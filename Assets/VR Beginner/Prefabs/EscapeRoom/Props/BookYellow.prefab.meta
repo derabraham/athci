@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f9052a9252653184899af8729f925707
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/EscapeRoom/Props/BookYellow.prefab
+  uploadId: 460758

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b4bbe15423322ed41a7f5c18437c5a46
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/Potions/PotionBottle1.prefab
+  uploadId: 460758
