@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: edb896499a74f8d43943294fc4458ae2
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Scenes/Templates/EmptyPrototypeScene.unity
+  uploadId: 460758

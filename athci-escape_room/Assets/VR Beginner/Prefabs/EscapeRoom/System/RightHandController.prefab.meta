@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3ff543da976e06d4aa25941e5189f81c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/EscapeRoom/System/RightHandController.prefab
+  uploadId: 460758

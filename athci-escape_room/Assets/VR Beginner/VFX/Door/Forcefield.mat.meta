@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: adbff525439b9e044afc648706867b84
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/VFX/Door/Forcefield.mat
+  uploadId: 460758

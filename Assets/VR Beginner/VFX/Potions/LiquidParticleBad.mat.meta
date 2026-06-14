@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3007901280f05db40b65e3e472ee3950
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/VFX/Potions/LiquidParticleBad.mat
+  uploadId: 460758

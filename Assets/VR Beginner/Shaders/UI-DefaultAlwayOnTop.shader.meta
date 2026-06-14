@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c59c1047b874ec640ad4982dd0164e0c
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Shaders/UI-DefaultAlwayOnTop.shader
+  uploadId: 460758

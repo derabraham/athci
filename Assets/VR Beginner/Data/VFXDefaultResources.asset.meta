@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5ea448f75fb2c4d40ba23d33482e8010
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Data/VFXDefaultResources.asset
+  uploadId: 460758

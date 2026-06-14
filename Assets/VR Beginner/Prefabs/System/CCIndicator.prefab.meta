@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e391440c91e82f8459029f1bce8f6fc2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/System/CCIndicator.prefab
+  uploadId: 460758

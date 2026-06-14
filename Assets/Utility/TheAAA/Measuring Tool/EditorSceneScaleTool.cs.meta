@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: be09ef1f942c88f48adfe04e53d197ce
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226340
+  packageName: Measuring Tool
+  packageVersion: 1.4
+  assetPath: Assets/Utility/TheAAA/Measuring Tool/EditorSceneScaleTool.cs
+  uploadId: 616227

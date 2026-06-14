@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5347717e71dbf364ebee0d38ac13eba0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Materials/SelfIllum.mat
+  uploadId: 460758

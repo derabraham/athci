@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bd3da505ae8a0b14f99978167f68918c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/VFX/Teleporter/TeleporterGlyph.mat
+  uploadId: 460758

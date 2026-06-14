@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 942fad8a26445c44596b9797de96bc39
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/EscapeRoom/BookOfSpells.prefab
+  uploadId: 460758

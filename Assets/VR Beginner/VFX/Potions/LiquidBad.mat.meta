@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5b1bf270ea791c641a207a0e35126df0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/VFX/Potions/LiquidBad.mat
+  uploadId: 460758

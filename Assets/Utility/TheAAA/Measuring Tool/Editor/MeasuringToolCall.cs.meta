@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e9352ca89eb816b4a9feba6e4ef39f1b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226340
+  packageName: Measuring Tool
+  packageVersion: 1.4
+  assetPath: Assets/Utility/TheAAA/Measuring Tool/Editor/MeasuringToolCall.cs
+  uploadId: 616227

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 55368765a9112f74389e5e019bb3844b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/Ingredients/Pumpking.prefab
+  uploadId: 460758

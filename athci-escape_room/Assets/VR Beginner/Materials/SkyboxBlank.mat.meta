@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 508785c2af3499b4790effb0803f30eb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Materials/SkyboxBlank.mat
+  uploadId: 460758

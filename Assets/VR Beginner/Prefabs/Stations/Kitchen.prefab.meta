@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 89026add816f1f142b81b0985e4e79a9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/Stations/Kitchen.prefab
+  uploadId: 460758

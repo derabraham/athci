@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3af81b2bb22b60348b47e8d0605411fe
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/System/CCCanvas.prefab
+  uploadId: 460758

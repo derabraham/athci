@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 21a9b655c2d703344abc684145092a05
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/PrototypeScene/TeleportationAnchorPrototype.prefab
+  uploadId: 460758

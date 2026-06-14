@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 021949f8e99a07a4b9ebb77c3e1a6df3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 163264
+  packageName: 'VR Beginner: The Escape Room'
+  packageVersion: 1.4
+  assetPath: Assets/VR Beginner/Prefabs/EscapeRoom/Props/BookGreen.prefab
+  uploadId: 460758
