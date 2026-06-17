@@ -16839,6 +16839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1818b2e823828424e964f6fdf0ce6d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StudyLogger
+  uiMenu: {fileID: 1730259864}
 --- !u!114 &1730259864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20266,6 +20267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EvaSystemEventSender
   narrativeTrigger: {fileID: 9086545065347515497}
+  isCollab: 0
   blockWhileUserIsSpeaking: 0
   blockWhileEvaIsSpeaking: 0
   requiredSilentSecondsBeforeSend: 5

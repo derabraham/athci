@@ -1,5 +1,6 @@
-using UnityEngine;
+using Convai.Infrastructure.Networking;
 using Convai.Modules.Narrative;
+using UnityEngine;
 
 public class EvaSystemEventSender : MonoBehaviour
 {
@@ -8,41 +9,35 @@ public class EvaSystemEventSender : MonoBehaviour
     [Header("Convai")]
     [SerializeField] private ConvaiNarrativeDesignTrigger narrativeTrigger;
 
+    [Header("Condition")]
+    [Tooltip("Set this per scene. If enabled, EVA can send proactive collaboration hints. If disabled, EVA behaves as tool mode.")]
+    [SerializeField] private bool isCollab = false;
+
     [Header("Manual Speaking Guard - Recommended")]
-    [Tooltip("If true, proactive hints are blocked while NotifyUserSpeechStarted() has been called and NotifyUserSpeechEnded() has not been called yet.")]
     [SerializeField] private bool blockWhileUserIsSpeaking = false;
 
-    [Tooltip("If true, proactive hints are blocked while NotifyEvaSpeechStarted() has been called and NotifyEvaSpeechEnded() has not been called yet.")]
     [SerializeField] private bool blockWhileEvaIsSpeaking = false;
 
-    [Tooltip("How many seconds of silence are required after the last user speech, EVA trigger, or manual EVA speech event before a proactive hint may be sent.")]
     [SerializeField] private float requiredSilentSecondsBeforeSend = 5f;
 
     [Header("Optional AudioSource Guard - OFF by default")]
-    [Tooltip("Keep this OFF unless you have a reliable EVA voice AudioSource that isPlaying is false when EVA is silent. ConvAI AudioSources can stay active forever and block all hints.")]
     [SerializeField] private bool useAudioSourceSpeakingGuard = false;
 
-    [Tooltip("Only used when Use Audio Source Speaking Guard is enabled.")]
     [SerializeField] private AudioSource[] evaVoiceAudioSources;
 
     [Header("Startup / Spam Protection")]
-    [Tooltip("Prevents immediate hint spam after enabling collaboration.")]
     [SerializeField] private float collabStartGracePeriod = 15f;
 
-    [Tooltip("Minimum gap between two automatic proactive hints.")]
     [SerializeField] private float minimumGapBetweenProactiveHints = 35f;
 
-    [Tooltip("Minimum gap after any EVA trigger. This prevents EVA from interrupting herself even if no voice callbacks are wired.")]
     [SerializeField] private float minimumGapAfterEvaTrigger = 12f;
 
     [Header("Queue Behaviour")]
-    [Tooltip("If true, the latest blocked hint is sent later once all guards allow it. If false, blocked hints are discarded. Recommended: false for testing and predictable behaviour.")]
     [SerializeField] private bool queueLatestMessageWhileBusy = false;
 
     [Header("Debug")]
     [SerializeField] private bool logMessages = true;
 
-    private static bool isCollab = false;
     private static bool isUserSpeaking = false;
     private static bool isEvaSpeakingManual = false;
     private static float collabEnabledAt = -999f;
@@ -56,9 +51,24 @@ public class EvaSystemEventSender : MonoBehaviour
     private bool queuedAllowInToolMode = false;
     private bool queuedBypassCooldown = false;
 
-    public static bool IsCollab { get { return isCollab; } }
-    public static bool IsToolMode { get { return !isCollab; } }
+    public static bool IsCollab
+    {
+        get
+        {
+            return Instance != null && Instance.isCollab;
+        }
+    }
+
+    public static bool IsToolMode
+    {
+        get
+        {
+            return !IsCollab;
+        }
+    }
+
     public static bool IsUserSpeaking { get { return isUserSpeaking; } }
+
     public static bool IsEvaSpeaking
     {
         get
@@ -71,12 +81,14 @@ public class EvaSystemEventSender : MonoBehaviour
             return isEvaSpeakingManual || Instance.IsEvaVoicePlayingByAudioSourceOnlyIfEnabled();
         }
     }
+
     public static bool IsAnyoneSpeaking { get { return IsUserSpeaking || IsEvaSpeaking; } }
+
     public static bool IsInCollabGracePeriod
     {
         get
         {
-            return isCollab && Time.time < collabEnabledAt + (Instance != null ? Instance.collabStartGracePeriod : 10f);
+            return IsCollab && Time.time < collabEnabledAt + (Instance != null ? Instance.collabStartGracePeriod : 10f);
         }
     }
 
@@ -112,44 +124,73 @@ public class EvaSystemEventSender : MonoBehaviour
         }
 
         Instance = this;
+        ApplyInspectorCondition();
         MarkActivityNow();
     }
+
+    private void Start()
+    {
+        ApplyInspectorCondition();
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (Application.isPlaying && Instance == this)
+        {
+            ApplyInspectorCondition();
+        }
+    }
+#endif
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            SetCollaborationMode(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SetCollaborationMode(false);
-        }
-
+        // C/T keyboard switching removed.
         TrySendQueuedMessageWhenSafe();
     }
 
-    public static void SetCollaborationMode(bool enabled)
+    private void ApplyInspectorCondition()
     {
-        isCollab = enabled;
         MarkActivityNow();
 
-        if (enabled)
+        if (isCollab)
         {
             collabEnabledAt = Time.time;
-            nextAllowedProactiveHintTime = Time.time + (Instance != null ? Instance.collabStartGracePeriod : 10f);
-            Debug.Log("[EVA] Collaboration mode enabled. Proactive hints are rare; private campus context should be appended silently to real user messages.");
+            nextAllowedProactiveHintTime = Time.time + collabStartGracePeriod;
+
+            if (logMessages)
+            {
+                Debug.Log("[EVA] Collaboration mode enabled from Inspector.");
+            }
         }
         else
         {
-            if (Instance != null)
-            {
-                Instance.ClearQueuedMessage();
-            }
+            ClearQueuedMessage();
 
-            Debug.Log("[EVA] Tool mode enabled. EVA will not send proactive hints.");
+            if (logMessages)
+            {
+                Debug.Log("[EVA] Tool mode enabled from Inspector.");
+            }
         }
+    }
+
+    public void SetCollaborationModeFromInspector(bool enabled)
+    {
+        isCollab = enabled;
+        ApplyInspectorCondition();
+    }
+
+    // Falls andere Scripts schon EvaSystemEventSender.SetCollaborationMode(...)
+    // aufrufen, kannst du diese Methode behalten.
+    public static void SetCollaborationMode(bool enabled)
+    {
+        if (Instance == null)
+        {
+            Debug.LogWarning("[EVA] No EvaSystemEventSender found in scene.");
+            return;
+        }
+
+        Instance.SetCollaborationModeFromInspector(enabled);
     }
 
     public static void NotifyUserSpeechStarted()
@@ -224,7 +265,7 @@ public class EvaSystemEventSender : MonoBehaviour
 
     public static void Send(string message, bool allowInToolMode, bool bypassCooldown)
     {
-        if (!isCollab && !allowInToolMode)
+        if (!IsCollab && !allowInToolMode)
         {
             return;
         }
@@ -285,6 +326,7 @@ public class EvaSystemEventSender : MonoBehaviour
             {
                 LogSkip("user/EVA is speaking or silence period is too short");
             }
+
             return;
         }
 
@@ -337,7 +379,7 @@ public class EvaSystemEventSender : MonoBehaviour
             return;
         }
 
-        if (!isCollab && !queuedAllowInToolMode)
+        if (!IsCollab && !queuedAllowInToolMode)
         {
             ClearQueuedMessage();
             return;
@@ -419,6 +461,10 @@ public class EvaSystemEventSender : MonoBehaviour
         if (!success)
         {
             Debug.LogWarning("[EVA] Failed to invoke Convai narrative trigger.");
+        }
+        else
+        {
+            StudyCounters.AddInteraction();
         }
     }
 

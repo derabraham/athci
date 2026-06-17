@@ -16,6 +16,7 @@ public class StudyLogger : MonoBehaviour
     private string LogFolder => Path.Combine(Application.persistentDataPath, "StudyLogs");
     private string LogFilePath => Path.Combine(LogFolder, "study_log.csv");
 
+    public StudyMenuUI uiMenu;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,7 +44,7 @@ public class StudyLogger : MonoBehaviour
         Debug.Log($"[StudyLogger] Task started. PID={ParticipantID}, Level={GetLevelID()}, Condition={GetConditionID()}");
     }
 
-    public void FinishTask()
+    public void FinishTask(bool success = true)
     {
         if (!taskRunning)
         {
@@ -54,12 +55,15 @@ public class StudyLogger : MonoBehaviour
         float duration = Time.time - taskStartTime;
         taskRunning = false;
 
-        WriteCsvLine(duration);
+        WriteCsvLine(duration, success);
 
-        Debug.Log($"[StudyLogger] Task finished. Duration={duration:F2}s");
+        Debug.Log($"[StudyLogger] Task finished. Duration={duration:F2}s, Success={(success ? 1 : 0)}");
+
+        if (uiMenu != null)
+            uiMenu.resetButtons();
     }
 
-    private void WriteCsvLine(float durationSeconds)
+    private void WriteCsvLine(float durationSeconds, bool success)
     {
         Directory.CreateDirectory(LogFolder);
 
@@ -69,7 +73,7 @@ public class StudyLogger : MonoBehaviour
 
         if (!fileExists)
         {
-            writer.WriteLine("timestamp,pid,level_id,condition_id,task_time_seconds,num_questions,num_interactions");
+            writer.WriteLine("timestamp,pid,level_id,condition_id,task_time_seconds,success,num_questions,num_interactions");
         }
 
         string line =
@@ -78,6 +82,7 @@ public class StudyLogger : MonoBehaviour
             Csv(GetLevelID()) + "," +
             Csv(GetConditionID()) + "," +
             durationSeconds.ToString("F3", CultureInfo.InvariantCulture) + "," +
+            (success ? "1" : "0") + "," +
             StudyCounters.NumQuestions + "," +
             StudyCounters.NumInteractions;
 

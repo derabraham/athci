@@ -201,6 +201,7 @@ namespace Convai.Infrastructure.Networking
 
         private void HandlePlayerStartedSpeaking()
         {
+            StudyCounters.AddQuestion();
             lock (_playerSpeechStateLock)
             {
                 if (_isPlayerSpeaking)
@@ -208,7 +209,6 @@ namespace Convai.Infrastructure.Networking
                     _logger.Debug("[RTVIHandler] Ignoring duplicate user-started-speaking event.", LogCategory.Player);
                     return;
                 }
-                StudyCounters.AddQuestion();
                 _isPlayerSpeaking = true;
             }
 

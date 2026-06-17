@@ -118,6 +118,8 @@ public class MeetingPointDebugTracker : MonoBehaviour
         CurrentDistanceToMeetingPoint = Vector3.Distance(playerHead.position, realMeetingPoint.position);
         IsAtMeetingPoint = CurrentDistanceToMeetingPoint <= meetingPointRadius;
 
+        if (IsAtMeetingPoint) StudyLogger.Instance.FinishTask(true);
+
         IsFarEnoughFromParkhausNow = CurrentDistanceToParkhaus > minDistanceToParkhaus;
         IsCloseEnoughToParkhausNow = CurrentDistanceToParkhaus < maxDistanceToParkhaus;
         IsInParkhausRangeNow = IsFarEnoughFromParkhausNow && IsCloseEnoughToParkhausNow;

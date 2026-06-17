@@ -27,7 +27,7 @@ public class StudyMenuUI : MonoBehaviour
     {
         if (startButton != null)
             startButton.onClick.AddListener(OnStartButtonPressed);
-        if(stopButton != null)
+        if (stopButton != null)
             stopButton.onClick.AddListener(OnStopButtonPressed);
     }
 
@@ -35,8 +35,7 @@ public class StudyMenuUI : MonoBehaviour
     {
         TryInitializeController();
         GameObject targetMenu = menuRoot != null ? menuRoot : gameObject;
-        startButton.interactable = true;
-        stopButton.interactable = false;
+        resetButtons();
         targetMenu.SetActive(false);
     }
 
@@ -48,9 +47,16 @@ public class StudyMenuUI : MonoBehaviour
 
     public void OnStopButtonPressed()
     {
+        resetButtons();
+
+        if (StudyLogger.Instance != null)
+            StudyLogger.Instance.FinishTask(false);
+    }
+
+    public void resetButtons()
+    {
         startButton.interactable = true;
         stopButton.interactable = false;
-        StudyLogger.Instance.FinishTask();
     }
 
     public void OnStartButtonPressed()
