@@ -2,6 +2,8 @@
   <Project Path="Convai.Samples.LipSyncSample.csproj" />
   <Project Path="Convai.Infrastructure.Networking.Native.csproj" />
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Convai.Runtime.csproj" />
   <Project Path="LiveKit.csproj" />
   <Project Path="Convai.Infrastructure.Protocol.csproj" />
@@ -9,14 +11,12 @@
   <Project Path="Convai.Infrastructure.Networking.WebGL.csproj" />
   <Project Path="Convai.Modules.LipSync.csproj" />
   <Project Path="Convai.Domain.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Convai.Sample.csproj" />
   <Project Path="Convai.Infrastructure.csproj" />
   <Project Path="LiveKitBridge.csproj" />
   <Project Path="Convai.Application.csproj" />
   <Project Path="Convai.RestAPI.csproj" />
   <Project Path="Convai.Infrastructure.Networking.Abstractions.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Convai.Shared.csproj" />
   <Project Path="Convai.Runtime.Behaviors.csproj" />
   <Project Path="Convai.Modules.LipSync.Editor.csproj" />

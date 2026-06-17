@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using Convai.Domain.Abstractions;
 using Convai.Domain.DomainEvents.LipSync;
@@ -211,6 +212,10 @@ namespace Convai.Infrastructure.Networking
                 _isPlayerSpeaking = true;
             }
 
+            // Campus EVA integration:
+            // Keep the proactive hint system in sync with ConvAI's reliable speech events.
+            NotifyEvaSystemEventSender("NotifyUserSpeechStarted");
+
             _logger.Info("[RTVIHandler] Player started speaking", LogCategory.Player);
             _playerTranscriptionCoordinator.HandleStart();
 
@@ -229,6 +234,10 @@ namespace Convai.Infrastructure.Networking
 
                 _isPlayerSpeaking = false;
             }
+
+            // Campus EVA integration:
+            // Reset the user-speaking guard as soon as ConvAI reports that the player stopped speaking.
+            NotifyEvaSystemEventSender("NotifyUserSpeechEnded");
 
             _logger.Info("[RTVIHandler] Player stopped speaking", LogCategory.Player);
             _playerTranscriptionCoordinator.HandleStop();
@@ -251,9 +260,16 @@ namespace Convai.Infrastructure.Networking
                 LogCategory.Player);
 
             if (payload.IsFinal)
+            {
+                // Safety fallback: a final user transcript means the user utterance is complete.
+                // This prevents the Campus EVA guard from staying stuck if a stop event is missed.
+                NotifyEvaSystemEventSender("NotifyUserMessageSubmitted");
                 _playerTranscriptionCoordinator.HandleAsrFinal(text);
+            }
             else
+            {
                 _playerTranscriptionCoordinator.HandleInterim(text);
+            }
         }
 
         private void HandleCharacterLlmStarted(string participantId) => _logger.Debug(
@@ -270,6 +286,10 @@ namespace Convai.Infrastructure.Networking
 
         private void HandleCharacterStartedSpeaking(string participantId)
         {
+            // Campus EVA integration:
+            // Block proactive hints while EVA is actually speaking.
+            NotifyEvaSystemEventSender("NotifyEvaSpeechStarted");
+
             _logger.Info($"[RTVIHandler] Character started speaking for participant: {participantId}",
                 LogCategory.Character);
             PublishSpeechStateChanged(participantId, true);
@@ -277,6 +297,10 @@ namespace Convai.Infrastructure.Networking
 
         private void HandleCharacterStoppedSpeaking(string participantId)
         {
+            // Campus EVA integration:
+            // Release proactive hints again when EVA has stopped speaking.
+            NotifyEvaSystemEventSender("NotifyEvaSpeechEnded");
+
             _logger.Info($"[RTVIHandler] Character stopped speaking for participant: {participantId}",
                 LogCategory.Character);
             PublishSpeechStateChanged(participantId, false);
@@ -313,6 +337,10 @@ namespace Convai.Infrastructure.Networking
                 _logger.Warning("[RTVIHandler] Received bot-turn-completed with null payload.", LogCategory.Character);
                 return;
             }
+
+            // Safety fallback: a completed bot turn means EVA should no longer be considered speaking.
+            // This helps if ConvAI misses or delays a bot-stopped-speaking event.
+            NotifyEvaSystemEventSender("NotifyEvaSpeechEnded");
 
             if (_eventHub == null)
             {
@@ -455,6 +483,8 @@ namespace Convai.Infrastructure.Networking
                                 data.ParticipantId
                             );
 
+                            // Safety fallback for processed final transcription events.
+                            NotifyEvaSystemEventSender("NotifyUserMessageSubmitted");
                             _playerTranscriptionCoordinator.HandleProcessedFinal(cleanedText, speakerInfo);
 
                             string speakerDisplay = !string.IsNullOrEmpty(data.SpeakerName)
@@ -661,6 +691,64 @@ namespace Convai.Infrastructure.Networking
 
         private bool IsDebugEnabled(LogCategory category) =>
             _logger != null && _logger.IsEnabled(LogLevel.Debug, category);
+
+        /// <summary>
+        ///     Optional bridge to the user project's EvaSystemEventSender without creating a hard compile-time
+        ///     dependency from the ConvAI assembly to Assembly-CSharp. This keeps the ConvAI SDK compiling even
+        ///     when the Campus EVA scripts are not present in another scene/project.
+        /// </summary>
+        private void NotifyEvaSystemEventSender(string methodName)
+        {
+            if (string.IsNullOrWhiteSpace(methodName)) return;
+
+            try
+            {
+                Type senderType = Type.GetType("EvaSystemEventSender");
+
+                if (senderType == null)
+                {
+                    Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+                    for (int i = 0; i < assemblies.Length; i++)
+                    {
+                        senderType = assemblies[i].GetType("EvaSystemEventSender");
+
+                        if (senderType != null)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if (senderType == null)
+                {
+                    _logger?.Debug(
+                        $"[RTVIHandler] EvaSystemEventSender not found. Skipping {methodName}().",
+                        LogCategory.Events);
+                    return;
+                }
+
+                MethodInfo method = senderType.GetMethod(
+                    methodName,
+                    BindingFlags.Public | BindingFlags.Static);
+
+                if (method == null)
+                {
+                    _logger?.Warning(
+                        $"[RTVIHandler] EvaSystemEventSender.{methodName}() was not found.",
+                        LogCategory.Events);
+                    return;
+                }
+
+                method.Invoke(null, null);
+            }
+            catch (Exception exception)
+            {
+                _logger?.Warning(
+                    $"[RTVIHandler] Could not call EvaSystemEventSender.{methodName}(): {exception.Message}",
+                    LogCategory.Events);
+            }
+        }
 
         private void RunOnMainThread(Action action)
         {

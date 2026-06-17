@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class StudyMenuUI : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private TMP_InputField participantInput;
     [SerializeField] private TMP_Dropdown participantDropdown;
 
     [Header("Start Behaviour")]
@@ -15,6 +14,7 @@ public class StudyMenuUI : MonoBehaviour
     [SerializeField] private bool loadSceneOnStart = false;
     [SerializeField] private string sceneToLoad;
     public Button startButton;
+    public Button stopButton;
 
     [Header("VR Menu Toggle")]
     [SerializeField] private bool allowVrToggle = true;
@@ -27,12 +27,16 @@ public class StudyMenuUI : MonoBehaviour
     {
         if (startButton != null)
             startButton.onClick.AddListener(OnStartButtonPressed);
+        if(stopButton != null)
+            stopButton.onClick.AddListener(OnStopButtonPressed);
     }
 
     private void Start()
     {
         TryInitializeController();
         GameObject targetMenu = menuRoot != null ? menuRoot : gameObject;
+        startButton.interactable = true;
+        stopButton.interactable = false;
         targetMenu.SetActive(false);
     }
 
@@ -41,8 +45,18 @@ public class StudyMenuUI : MonoBehaviour
         HandleVRMenuToggle();
     }
 
+
+    public void OnStopButtonPressed()
+    {
+        startButton.interactable = true;
+        stopButton.interactable = false;
+        StudyLogger.Instance.FinishTask();
+    }
+
     public void OnStartButtonPressed()
     {
+        startButton.interactable = false;
+        stopButton.interactable = true;
         string pid = GetParticipantID();
 
         StudyLogger.SetParticipantID(pid);
@@ -61,6 +75,7 @@ public class StudyMenuUI : MonoBehaviour
             else
                 gameObject.SetActive(false);
         }
+        
     }
 
     private void HandleVRMenuToggle()
@@ -108,9 +123,6 @@ public class StudyMenuUI : MonoBehaviour
 
     private string GetParticipantID()
     {
-        if (participantInput != null)
-            return participantInput.text;
-
         if (participantDropdown != null)
             return participantDropdown.options[participantDropdown.value].text;
 

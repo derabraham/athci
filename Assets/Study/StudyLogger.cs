@@ -93,7 +93,7 @@ public class StudyLogger : MonoBehaviour
 
     private string GetConditionID()
     {
-        return EvaSystemEventSender.IsCollab ? "A_Collab" : "B_Tool";
+        return EvaSystemEventSender.IsCollab ? "A_CollabPartner" : "B_Tool";
     }
 
     private string Csv(string value)

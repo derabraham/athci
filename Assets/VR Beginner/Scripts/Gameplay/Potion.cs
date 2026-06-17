@@ -124,7 +124,6 @@ public class Potion : MonoBehaviour
 
     public void PlugOff()
     {
-        UnityEngine.Debug.Log("PlugOff called");
         if (m_PlugIn)
         {
             m_PlugIn = false;
