@@ -201,7 +201,7 @@ namespace Convai.Infrastructure.Networking
 
         private void HandlePlayerStartedSpeaking()
         {
-            StudyCounters.AddQuestion();
+            UnityEngine.Debug.Log("frage gestellt");
             lock (_playerSpeechStateLock)
             {
                 if (_isPlayerSpeaking)
@@ -472,6 +472,7 @@ namespace Convai.Infrastructure.Networking
                     }
                 case "final-user-transcription":
                     {
+                        StudyCounters.AddQuestion();
                         var data = payload.ToObject<FinalUserTranscriptionPayload>();
                         if (data != null)
                         {
