@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee72f77f95ef470ca9bda1cee186ec1, type: 3}
   m_Name: ConvaiSettings
   m_EditorClassIdentifier: Convai.Runtime::Convai.Runtime.ConvaiSettings
-  _apiKey: 5a7ceda7176c1bf844b7102dc56381c3
+  _apiKey: 50004977e3e2ab975ec6a444a9db58a4
   _serverUrl: https://live.convai.com
   _playerName: 
   _defaultMicrophoneIndex: 0

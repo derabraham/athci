@@ -29155,12 +29155,12 @@ PrefabInstance:
     - target: {fileID: 6658063731124271566, guid: 7aa7ccc326b36ca41990820590f21ffd,
         type: 3}
       propertyPath: _speakerId
-      value: a2876e24-634c-11f1-974f-42010a7be02e
+      value: 3d085920-6a52-11f1-a1fd-42010a7be02e
       objectReference: {fileID: 0}
     - target: {fileID: 7772688408702287233, guid: 7aa7ccc326b36ca41990820590f21ffd,
         type: 3}
       propertyPath: _characterId
-      value: a2876e24-634c-11f1-974f-42010a7be02e
+      value: 3d085920-6a52-11f1-a1fd-42010a7be02e
       objectReference: {fileID: 0}
     - target: {fileID: 7772688408702287233, guid: 7aa7ccc326b36ca41990820590f21ffd,
         type: 3}

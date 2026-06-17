@@ -18967,6 +18967,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23502359826897820, guid: 53cc8692c5de61148b5301830771ad99,
+        type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1.9066879
+      objectReference: {fileID: 0}
+    - target: {fileID: 23856005217102400, guid: 53cc8692c5de61148b5301830771ad99,
+        type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1.9928669
+      objectReference: {fileID: 0}
+    - target: {fileID: 65304590169574076, guid: 53cc8692c5de61148b5301830771ad99,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 205596742026036644, guid: 53cc8692c5de61148b5301830771ad99,
+        type: 3}
+      propertyPath: m_Size
+      value: 118
+      objectReference: {fileID: 0}
+    - target: {fileID: 205596742026036644, guid: 53cc8692c5de61148b5301830771ad99,
+        type: 3}
+      propertyPath: m_LocalReferencePoint.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -46410,7 +46435,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1246363883186962286}
   m_HandleRect: {fileID: 8587315019674950266}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
