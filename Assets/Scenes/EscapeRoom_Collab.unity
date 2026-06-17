@@ -22252,6 +22252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EvaSystemEventSender
   narrativeTrigger: {fileID: 9086545065347515497}
+  isCollab: 1
   systemPrefix: '[System] '
   logMessages: 1
 --- !u!4 &2007308067
@@ -42215,12 +42216,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46564be1db321415983500851021a6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Convai.Runtime::Convai.Runtime.Components.ConvaiCharacter
-  _characterId: 142271c0-4a14-11f1-9b32-42010a7be02e
+  _characterId: b5f0b08e-6a26-11f1-ad63-42010a7be02e
   _characterName: Eva
   _nameTagColor: {r: 1, g: 1, b: 1, a: 1}
   _autoConnect: 1
   _enableRemoteAudio: 1
-  _enableSessionResume: 1
+  _enableSessionResume: 0
   _characterReadyTimeoutSeconds: 30
 --- !u!1 &5662964646880039519
 GameObject:
@@ -45098,7 +45099,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 263285755423251193}
   m_HandleRect: {fileID: 645295344117482986}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

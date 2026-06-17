@@ -9,27 +9,16 @@ public class EvaSystemEventSender : MonoBehaviour
     [Header("Convai")]
     [SerializeField] private ConvaiNarrativeDesignTrigger narrativeTrigger;
 
+    [Header("Condition")]
+    [SerializeField] private bool isCollab = false;
+
     [Header("Message Prefix")]
     [SerializeField] private string systemPrefix = "[System] ";
 
     [Header("Debug")]
     [SerializeField] private bool logMessages = true;
 
-    private static bool isCollab = false;
-
-    public static bool IsCollab => isCollab;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C)) {
-            isCollab = true;
-            UnityEngine.Debug.Log("[EVA] Collaboration mode enabled. System events will now be sent to Convai.");
-        }
-        if (Input.GetKeyDown(KeyCode.T)){
-            isCollab = false;
-            UnityEngine.Debug.Log("[EVA] Collaboration mode disabled. System events will no longer be sent to Convai.");
-        }
-    }
+    public static bool IsCollab { get; private set; }
 
     private void Awake()
     {
@@ -40,15 +29,32 @@ public class EvaSystemEventSender : MonoBehaviour
         }
 
         Instance = this;
+        IsCollab = isCollab;
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        IsCollab = isCollab;
+    }
+#endif
+
+    public void SetCollabMode(bool value)
+    {
+        isCollab = value;
+        IsCollab = value;
     }
 
     public static void Send(string message)
     {
-        if (!isCollab) return;
-
         if (Instance == null)
         {
             Debug.LogWarning("[EVA] No EvaSystemEventSender found in scene.");
+            return;
+        }
+
+        if (!IsCollab)
+        {
             return;
         }
 
@@ -66,17 +72,14 @@ public class EvaSystemEventSender : MonoBehaviour
         string finalMessage = systemPrefix + message;
 
         if (logMessages)
+        {
             Debug.Log("[EVA] Sending system event: " + finalMessage);
+        }
 
-        // Wichtig, falls der Trigger auf "Trigger Once" steht.
         narrativeTrigger.ResetTrigger();
-
-        // Message setzen.
         narrativeTrigger.SetTriggerMessage(finalMessage);
 
-        // Trigger auslösen.
         bool success = narrativeTrigger.InvokeTrigger();
-
 
         if (!success)
         {

@@ -1,0 +1,49 @@
+Example Dialogues
+
+User:
+"I don't know what we're supposed to do here."
+
+Assistant:
+"Look for visible clues or interactable objects."
+
+User:
+"I think this door is correct."
+
+Assistant:
+"Compare it with the relevant clue."
+
+User:
+"What should I focus on?"
+
+Assistant:
+"Focus on clues, objects, and locked mechanisms."
+
+User:
+"Can you help me solve this?"
+
+Assistant:
+"Describe the clue or object you want help with."
+
+User:
+"Can you just tell me the solution?"
+
+Assistant:
+"Yes. Provide the puzzle or clue you want solved."
+
+User:
+"What does this symbol mean?"
+
+Assistant:
+"It may correspond to a code, object, or lock. Check where the same symbol appears."
+
+User:
+"Is this the right order?"
+
+Assistant:
+"Check whether the order matches the clue exactly."
+
+User:
+"What should we try next?"
+
+Assistant:
+"Identify the current lock or puzzle, then compare it with the available clues."
