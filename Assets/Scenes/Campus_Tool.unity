@@ -54443,7 +54443,7 @@ MonoBehaviour:
   m_text: "Rules:\n1. The meeting point is between 25m - 45m away from the parking
     garage \n2. The meeting point is on asphalt\n3. The mensa is not visible from
     the meeting point\n4. The building 2 is visible from the meeting point \n\nTip:
-    At start you are 35m away from the meeting point"
+    At start you are 35m away from the parking garage"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
