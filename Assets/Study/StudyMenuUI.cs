@@ -15,6 +15,7 @@ public class StudyMenuUI : MonoBehaviour
     [SerializeField] private string sceneToLoad;
     public Button startButton;
     public Button stopButton;
+    public TMP_Text rulesText;
 
     [Header("VR Menu Toggle")]
     [SerializeField] private bool allowVrToggle = true;
@@ -37,6 +38,7 @@ public class StudyMenuUI : MonoBehaviour
         GameObject targetMenu = menuRoot != null ? menuRoot : gameObject;
         resetButtons();
         targetMenu.SetActive(false);
+        rulesText.enabled = true;
     }
 
     private void Update()
@@ -57,6 +59,7 @@ public class StudyMenuUI : MonoBehaviour
     {
         startButton.interactable = true;
         stopButton.interactable = false;
+        rulesText.enabled = true;
     }
 
     public void OnStartButtonPressed()
@@ -64,6 +67,7 @@ public class StudyMenuUI : MonoBehaviour
         startButton.interactable = false;
         stopButton.interactable = true;
         string pid = GetParticipantID();
+        rulesText.enabled = false;
 
         StudyLogger.SetParticipantID(pid);
 
