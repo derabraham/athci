@@ -1,0 +1,15 @@
+timestamp,pid,level_id,condition_id,task_time_seconds,success,num_questions,num_interactions
+2026-06-18 11:05:10,1,Campus_Collab,A_CollabPartner,186.955,1,7,3
+2026-06-18 11:27:46,1,EscapeRoom_Tool,B_Tool,586.512,1,29,0
+2026-06-18 11:50:58,2,Campus_Tool,B_Tool,447.004,1,25,0
+2026-06-18 12:09:45,2,EscapeRoom_Collab,A_CollabPartner,536.847,0,35,3
+2026-06-18 12:43:06,3,EscapeRoom_Collab,A_CollabPartner,452.475,1,56,2
+2026-06-18 12:56:42,3,Campus_Tool,B_Tool,76.569,1,10,0
+2026-06-18 14:06:10,4,EscapeRoom_Tool,B_Tool,359.421,1,48,0
+2026-06-18 14:20:16,4,Campus_Collab,A_CollabPartner,180.816,1,15,1
+2026-06-18 15:31:15,5,Campus_Collab,A_CollabPartner,520.474,1,52,6
+2026-06-18 15:47:45,5,EscapeRoom_Tool,B_Tool,510.835,1,32,0
+2026-06-25 10:54:02,6,Campus_Tool,B_Tool,322.584,1,29,0
+2026-06-25 11:11:37,6,EscapeRoom_Collab,A_CollabPartner,676.107,1,29,3
+2026-06-25 11:25:59,7,EscapeRoom_Collab,A_CollabPartner,480.960,1,60,0
+2026-06-25 11:32:23,7,Campus_Tool,B_Tool,111.081,1,9,0
